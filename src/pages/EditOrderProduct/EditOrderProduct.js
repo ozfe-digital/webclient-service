@@ -127,6 +127,7 @@ export default class EditOrderProduct extends Component {
                 utils.showSuccess("Product Saved Updated.");
                 this.resetErrorState();
                 this.resetState();
+                
             })
             .catch(_errors => {
                 if (_errors.response) {

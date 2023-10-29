@@ -112,9 +112,12 @@ export default class NewCustomer extends Component {
       .then(response => {
         if (response.data != null) {
           utils.showSuccess("Customer Update Successfully.");
+          this.props.history.push('/customer');
         }
         else {
           this.setState({ "show": false });
+          utils.showSuccess("Customer Update Failed.");
+          this.props.history.push('/customer');
         }
       });
     this.setState(this.initialState);

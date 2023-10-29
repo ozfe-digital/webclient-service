@@ -111,6 +111,7 @@ export default class NewProduct extends Component {
       console.log('response',response);
       if (response.data != null) {
          utils.showSuccess("Product Update Successfully.");
+         this.props.history.push('/product');
       }
       else {
         this.setState({ "show": false });
@@ -119,6 +120,7 @@ export default class NewProduct extends Component {
     },
     (error)=>{
       utils.showSuccess("Product Update Failed.");
+      this.props.history.push('/product');
       console.log('error',error);
     }); 
   };
