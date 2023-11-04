@@ -12,13 +12,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
-import SendIcon from "@material-ui/icons/Send";
 import { Link } from 'react-router-dom';
 import utils from "../helper/utils";
 import { appConfig } from "../configs/app.config";
-import tokens from "../helper/tokens";
 //
-import Select from 'react-select';
 
 
 //

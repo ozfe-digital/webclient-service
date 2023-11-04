@@ -1,62 +1,44 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../NavBar";
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton'; 
 import { Link } from "react-router-dom";  
-
+import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-const drawerWidth = 220;
-
 const useStyles = makeStyles((theme) => ({ 
-  link: {
-    textDecoration: 'none',
-    color: theme.palette.text.primary
-  }, 
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      // width: `calc(100%)`,
-      // width: `calc(100% - ${drawerWidth}px)`,
-      // marginLeft: drawerWidth,
-      background: "#753ffd",
+    link: {
+      textDecoration: 'none',
+      color: theme.palette.text.primary
+    }, 
+    appBar: {
+      [theme.breakpoints.up('sm')]: {
+        // width: `calc(100%)`,
+        // width: `calc(100% - ${drawerWidth}px)`,
+        // marginLeft: drawerWidth,
+        background: "#753ffd",
+      },
     },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
+    menuButton: {
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
     },
-  },
-  root: {
-    display: 'flex',
-  },
-  // drawerPaper: { width: 'inherit' },
-  // link: {
-  //   textDecoration: 'none',
-  //   color: theme.palette.text.primary
-  // },
-  // drawer: {
-  //   [theme.breakpoints.up('sm')]: {
-  //     width: drawerWidth,
-  //     flexShrink: 0,
-  //   },
-  // },  
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
+    root: {
+      display: 'flex',
+    },
  
-  title: {
-    flexGrow: 1,
-  },
+    title: {
+      flexGrow: 1,
+    },
 }));
 
-
-export default function AppBarCmp(props) { 
+export default function TopBarTool(props) { 
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null); 
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -74,22 +56,9 @@ export default function AppBarCmp(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const classes = useStyles(); 
-  const [navVisible, showNavbar] = useState(false);
-
-
   return (
-    
-    <AppBar position="absolute" className={classes.appBar}>
-      
-      <Toolbar >
-      
-      {/* <Button onClick={ showNavbar }><Icon path={mdiMenu} size={1}/></Button> */}
-
-        <Typography variant="h6" noWrap className={classes.title}>
-          Order Management system
-        </Typography>
+    <div>
         <IconButton
           aria-label="account of current user"
           aria-controls="menu-appbar"
@@ -112,9 +81,6 @@ export default function AppBarCmp(props) {
           </Link>
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Menu>
-
-      </Toolbar>
-
-    </AppBar>
+        </div>
   );
 }

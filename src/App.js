@@ -25,7 +25,6 @@ import { interceptor } from './interceptor';
 
 import utils from './helper/utils'; 
 
-const drawerWidth = 240; 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -65,15 +64,15 @@ export default function App (props) {
   return ( 
     <Router history={history}>
       <Switch> 
-        <Route path="/" exact component={HomePage} />
+        <Route path="/" exact component={SignIn} />
         <Route exact path="/signin" component={SignIn} />
-        <Route path="/home" exact component={HomePage} />
+        <Route path="/home" exact component={HomePage } />
         
         <Route exact path="/customer" component={CustomerList} />
         <Route exact path="/product" component={ProductList} />
         <Route exact path="/order" component={OrderList} />
         <Route exact path="/order-view/:id" component={OrderView} />
-        <Route exact path="/order-product-edit/:id" component={OrderProductEdit} />
+        <Route exact path="/order-product-edit/:id" component={OrderProductEdit } />
         <Route exact path="/new-customer" component={NewCustomer} />
         <Route exact path="/update-customer/:id" component={NewCustomer} />
         <Route exact path="/new-product" component={NewProduct} />

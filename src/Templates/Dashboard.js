@@ -1,14 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBarCmp from "../AppBarCmp/AppBarCmp";
-import DrawerCmp from "../DrawerCmp/DrawerCmp"; 
-import Navbar from "../NavBar";
-import TopBarTool from "../TopBarTool";
-import '../navbar.css';
+import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
@@ -26,6 +18,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { NavLink,useHistory } from "react-router-dom";
+import {
+	FaAngleRight,
+	FaAngleLeft, 
+	FaChartBar, 
+	FaThLarge, 
+	FaShoppingCart, 
+	FaCog,
+	FaSignOutAlt,
+	FaBars
+} from 'react-icons/fa';
+
+
+const ICON_SIZE = 15;
 
 
 function Copyright(props) {
@@ -90,28 +95,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function AppTemplate(props) {
-  const { site } = props; 
 
-  let [open, setOpen] = React.useState(false);
-
-  useEffect(() => {
-    setOpen(true); 
-  },[]);
-
-
-  const theme = useTheme();
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const [navVisible, showNavbar] = useState(false);
-
+export default function Dashboard({props}) {
+  
+  const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -124,13 +111,10 @@ export default function AppTemplate(props) {
 	  localStorage.clear();
 	  history.push('/signin'); 
 	};
-const grdContextHeight = "600";
 
-  return (  
-    
-    <div className="container-fluid">  
 
- <ThemeProvider theme={defaultTheme}>
+  return (
+    <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -160,7 +144,11 @@ const grdContextHeight = "600";
             >
               Dashboard
             </Typography>
-              <TopBarTool/>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -177,10 +165,33 @@ const grdContextHeight = "600";
             </IconButton>
           </Toolbar>
           <Divider />
-              <Navbar 
-              visible={ navVisible } 
-              show={ showNavbar }
-            />
+          <List component="nav">
+              <NavLink to="/home" className="nav-link">
+                <FaThLarge size={ICON_SIZE} />
+                <span>Home</span>
+              </NavLink>
+              <NavLink to="/customer" className="nav-link">
+                <FaChartBar size={ICON_SIZE} />
+                <span>Customers </span>
+              </NavLink>
+              <NavLink to="/product" className="nav-link">
+                <FaShoppingCart size={ICON_SIZE} />
+                <span>Products</span> 
+              </NavLink>
+              <NavLink to="/order" className="nav-link">
+                <FaShoppingCart size={ICON_SIZE} />
+                <span>Orders</span> 
+              </NavLink>
+            <Divider sx={{ my: 1 }} />
+                <NavLink to="/profile" className="nav-link">
+                <FaCog size={ICON_SIZE} />
+                <span>Profile</span> 
+                </NavLink>
+                <NavLink to="/signin" className="nav-link" onClick={handleClose}>
+                  <FaSignOutAlt size={ICON_SIZE} />
+                  <span>Logout</span> 
+                </NavLink>
+          </List>
         </Drawer>
         <Box
           component="main"
@@ -198,22 +209,23 @@ const grdContextHeight = "600";
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
             
-              <Grid item xs={{height: grdContextHeight}} md={8} lg={12}>
+              <Grid item xs={12} md={8} lg={9}>
                 <Paper sx={{ p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    
+                    height: 600,
                   }}>
-                      {{...props.children}} 
+
+
+               
+
                 </Paper>
               </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
-          </Box>
+        </Box>
       </Box>
     </ThemeProvider>
-          
-    </div>
   );
 }

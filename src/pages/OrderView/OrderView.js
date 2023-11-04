@@ -14,7 +14,6 @@ import UpdateIcon from '@material-ui/icons/Update';
 import './OrderView.css' 
 
 import { appConfig } from '../../configs/app.config';
-import utils from '../../helper/utils';
 const { baseUrl } = appConfig;
 
 

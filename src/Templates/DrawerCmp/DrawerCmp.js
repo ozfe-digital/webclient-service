@@ -62,7 +62,7 @@ export default function AppBarCmp(props) {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-          <Link to="/" className={classes.link}>
+          <Link to="/home" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon />

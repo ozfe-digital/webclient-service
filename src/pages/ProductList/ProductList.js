@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import '../../Templates/navbar.css';
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -77,8 +78,8 @@ export default class ProductList extends Component {
                         New Product
             </Button>
                 </Link>
-                <br /><br /><br />
-                <Grid item xs={12} sm={8}>
+                <br /><br />
+                <Grid >
                      <Paper>
                         <TableContainer component={Paper}>
                             <Table aria-label="customized table" className="order-table">

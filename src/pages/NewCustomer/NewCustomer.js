@@ -7,7 +7,6 @@ import axios from 'axios';
 import './NewCustomer.css'
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import SendIcon from '@material-ui/icons/Send';
-import CustomMessage from '../CustomMessage/CustomMessage';
 import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 
 

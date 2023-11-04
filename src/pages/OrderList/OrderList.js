@@ -80,7 +80,7 @@ export default class OrderList extends Component {
                         New Order
             </Button>
                 </Link>
-                <br /><br /><br />
+                <br /><br />
                 <Grid item xs={12} sm={12}>
                     <TableContainer component={Paper}>
                         <Table className='order-table' aria-label="customized table">
