@@ -1,4 +1,4 @@
-nav{
+/* nav{
 	position:absolute;
 	top:0;
 	left:0;
@@ -8,7 +8,7 @@ nav{
 	width:180px;
 	transition: transform 5ms;
 	border-radius: 10px;
-	margin-left: 10px;
+	margin-left: 10px;;
 }
 
 .nav-link{
@@ -51,34 +51,9 @@ nav{
 	outline: none;
 	border: none;
 	margin: 0 10px;
+} */
+
+.test {
+
+	margin-top: 300px;
 }
-
-/* @media only screen and (max-width: 1128px){
-	nav{
-		width: 60%;
-		padding: 10px;
-	}
-} */
-
-/* @media only screen and (max-width: 768px){
-	nav{
-		width: 30%;
-		padding: 10px;
-	}
-} */
-
-/* @media only screen and (max-width: 450px){
-	.mobile-nav{
-		display: flex;
-		align-items: center;
-	}
-	nav{
-		width: 70%;
-		top: 38px;
-		min-height: calc(100vh - 38px);
-	}
-
-	.nav-btn{
-		display: none;
-	}
-} */

@@ -3,8 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBarCmp from "../AppBarCmp/AppBarCmp";
-import DrawerCmp from "../DrawerCmp/DrawerCmp"; 
 import Navbar from "../NavBar";
 import TopBarTool from "../TopBarTool";
 import '../navbar.css';
@@ -17,15 +15,14 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { NavLink,useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { SideBarItems } from "../SideBarItems";
 
 
 function Copyright(props) {
@@ -41,7 +38,7 @@ function Copyright(props) {
   );
 }
 
-const drawerWidth = 200;
+const drawerWidth = 180;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -52,11 +49,12 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    // marginLeft: drawerWidth,
+    // width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
+      
     }),
   }),
 }));
@@ -67,6 +65,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
+      marginTop: 95,
+      marginLeft: 10,
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -74,6 +74,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       boxSizing: 'border-box',
       ...(!open && {
         overflowX: 'hidden',
+        marginTop: 95,
+        marginLeft: 10,
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
@@ -99,19 +101,7 @@ export default function AppTemplate(props) {
     setOpen(true); 
   },[]);
 
-
   const theme = useTheme();
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const [navVisible, showNavbar] = useState(false);
-
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -128,13 +118,13 @@ const grdContextHeight = "600";
 
   return (  
     
-    <div className="container-fluid">  
+<>
 
  <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
-          <Toolbar
+          <Toolbar  className="appbar"
             sx={{
               pr: '24px', // keep right padding when drawer closed
             }}
@@ -146,7 +136,7 @@ const grdContextHeight = "600";
               onClick={toggleDrawer}
               sx={{
                 marginRight: '36px',
-                ...(open && { display: 'none' }),
+
               }}
             >
               <MenuIcon />
@@ -158,29 +148,24 @@ const grdContextHeight = "600";
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Customer Relation Management
             </Typography>
               <TopBarTool/>
           </Toolbar>
+          
         </AppBar>
+        
         <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-              <Navbar 
-              visible={ navVisible } 
-              show={ showNavbar }
-            />
+        <List component="nav" className="nav">
+          <div className="nav">
+            {SideBarItems}  
+          </div>
+              
+          <div className="test">
+          <Divider/>
+            <Navbar />
+          </div>
+        </List>
         </Drawer>
         <Box
           component="main"
@@ -188,17 +173,18 @@ const grdContextHeight = "600";
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
                 ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+                : theme.palette.grey[1000],
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
           }}
         >
           <Toolbar />
+          
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
             
-              <Grid item xs={{height: grdContextHeight}} md={8} lg={12}>
+              <Grid item xs={{height: "vh-100"}} md={8} lg={12}>
                 <Paper sx={{ p: 2,
                     display: 'flex',
                     flexDirection: 'column',
@@ -214,6 +200,6 @@ const grdContextHeight = "600";
       </Box>
     </ThemeProvider>
           
-    </div>
+    </>
   );
 }
