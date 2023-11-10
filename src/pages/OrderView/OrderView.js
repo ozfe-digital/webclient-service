@@ -12,12 +12,18 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UpdateIcon from '@material-ui/icons/Update';
 import './OrderView.css' 
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 import { appConfig } from '../../configs/app.config';
 const { baseUrl } = appConfig;
 
 
-
+const columns = [
+  { field: 'name', headerName: 'Product Name', width: 130 },
+  { field: 'product_code', headerName: 'Code', width: 130 },
+  { field: 'price', headerName: 'Price', width: 130 },
+  { field: 'quantity', headerName: 'Required Quanity', width: 130 },
+];
 
 export default class OrderView extends Component {
 
@@ -51,7 +57,7 @@ export default class OrderView extends Component {
             remarks,
             status,
             orderDate,
-            orderDetails
+            orderDetails,
           } = response.data
           //console.log('orderDetails',orderDetails)
           this.setState({
@@ -155,12 +161,11 @@ export default class OrderView extends Component {
           Product List
         </Typography>
 
-
         <Grid item sm={8} xs={12}>
           <TableContainer component={Paper}>
-            <Table aria-label="customized table" className="order-product-table">
+            <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table" >
               <TableHead>
-                <TableRow style={{ backgroundColor: '#00bcd4', color: '#fafafa' }} variant="head">
+                <TableRow style={{  backgroundColor: '#2196f3', color: '#fafafa'  }} variant="head">
                   <TableCell>Product Name</TableCell>
                   <TableCell>Code</TableCell>
                   <TableCell>Price</TableCell>
@@ -170,9 +175,12 @@ export default class OrderView extends Component {
               </TableHead>
               <TableBody>
 
+
                 {orderDetails.map((eachRow, index) => {
 
-                  return (<TableRow key={index}>
+                  return (
+                    
+                    <TableRow key={index}>
                     <TableCell>{eachRow.product.name}</TableCell>
                     <TableCell>{eachRow.product.product_code}</TableCell>
                     <TableCell>{eachRow.product.price}</TableCell>

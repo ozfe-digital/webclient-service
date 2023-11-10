@@ -26,8 +26,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="">
-        Your Website
+      <Link color="inherit" href="https://ozfe-digital.de">
+      Ozfe-Digital
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}

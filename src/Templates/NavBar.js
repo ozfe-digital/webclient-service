@@ -8,10 +8,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-function Navbar({visible, show}) {
+function Navbar({props}) {
 	const history = useHistory();
 	const [anchorEl, setAnchorEl] = React.useState(null); 
-	const [mobileOpen, setMobileOpen] = React.useState(false);
+
   
 	const handleClose = () => {
 	  setAnchorEl(null);

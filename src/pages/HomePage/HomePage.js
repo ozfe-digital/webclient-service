@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import Alert from '@material-ui/lab/Alert';
 import SystemUser from "../../helper/user";
-import { appConfig } from '../../configs/app.config';
-import utils from '../../helper/utils';
 import AppTemplate from '../../Templates/AppTemplate/AppTemplate';
-const { baseUrl } = appConfig;
-
 
 export default class HomePage extends Component {
   

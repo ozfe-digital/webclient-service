@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React, { useEffect } from "react";
+import { useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navbar from "../NavBar";
 import TopBarTool from "../TopBarTool";
@@ -20,8 +18,6 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { useHistory } from "react-router-dom";
 import { SideBarItems } from "../SideBarItems";
 
 
@@ -29,8 +25,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://ozfe-digital.de">
+        Ozfe-Digital
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -65,7 +61,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
-      marginTop: 95,
+      marginRight: 10,
+      marginTop: 60,
       marginLeft: 10,
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -74,7 +71,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       boxSizing: 'border-box',
       ...(!open && {
         overflowX: 'hidden',
-        marginTop: 95,
+        marginTop: 60,
         marginLeft: 10,
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
@@ -93,28 +90,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function AppTemplate(props) {
-  const { site } = props; 
 
+  
   let [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     setOpen(true); 
   },[]);
 
-  const theme = useTheme();
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const history = useHistory();
-	const [anchorEl, setAnchorEl] = React.useState(null); 
-	const [mobileOpen, setMobileOpen] = React.useState(false);
-  
-	const handleClose = () => {
-	  setAnchorEl(null);
-	  localStorage.clear();
-	  history.push('/signin'); 
-	};
-const grdContextHeight = "600";
 
   return (  
     
@@ -124,7 +111,7 @@ const grdContextHeight = "600";
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
-          <Toolbar  className="appbar"
+          <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
             }}
@@ -155,17 +142,16 @@ const grdContextHeight = "600";
           
         </AppBar>
         
-        <Drawer variant="permanent" open={open}>
-        <List component="nav" className="nav">
-          <div className="nav">
-            {SideBarItems}  
-          </div>
-              
-          <div className="test">
-          <Divider/>
-            <Navbar />
-          </div>
-        </List>
+        <Drawer variant="permanent" open={open} >
+          <List component="nav"  className="appBar">
+            <div className="top">
+              {SideBarItems}  
+            </div>
+            <div className="bottom">
+            <Divider/> 
+              <Navbar />
+            </div>
+          </List>
         </Drawer>
         <Box
           component="main"
@@ -173,18 +159,18 @@ const grdContextHeight = "600";
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
                 ? theme.palette.grey[100]
-                : theme.palette.grey[1000],
-            flexGrow: 1,
-            height: '100vh',
+                : theme.palette.grey[800],
+            flexGrow: 2,
+            height: '100%',
             overflow: 'auto',
           }}
         >
           <Toolbar />
           
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 46 }}>
+            <Grid container spacing={1} >
             
-              <Grid item xs={{height: "vh-100"}} md={8} lg={12}>
+              <Grid item md={8} lg={12}>
                 <Paper sx={{ p: 2,
                     display: 'flex',
                     flexDirection: 'column',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; 
-import { makeStyles, unstable_createMuiStrictModeTheme, useTheme } from "@material-ui/core/styles";
-import { Router, Switch, Route, Link, useHistory } from 'react-router-dom';  
+import { makeStyles } from "@material-ui/core/styles";
+import { Router, Switch, Route, useHistory } from 'react-router-dom';  
 import 'react-toastify/dist/ReactToastify.css'; 
 //import UserList from './pages/User/UserCard';
 
@@ -21,9 +21,9 @@ import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import Profile from './Profile/Profile';
-import { interceptor } from './interceptor'; 
+import { interceptor } from './interceptor';
+import PrivateRoute from './privateRoute';
 
-import utils from './helper/utils'; 
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,12 +46,12 @@ export default function App (props) {
   interceptor(authExList, (authData)=>{ 
     const {loaderIsHide, redirectTo} = authData;
     setIsHideSpinner(loaderIsHide);    
-    if(redirectTo!=''){
+    if(redirectTo!==''){
       history.push(redirectTo);
     }
   });
   
-  // this way equal to componentDidMount()
+  // this way equal to elementDidMount()
   useEffect(() => {  
     setIsHideSpinner(true); 
   },[]);
@@ -67,7 +67,6 @@ export default function App (props) {
         <Route path="/" exact component={SignIn} />
         <Route exact path="/signin" component={SignIn} />
         <Route path="/home" exact component={HomePage } />
-        
         <Route exact path="/customer" component={CustomerList} />
         <Route exact path="/product" component={ProductList} />
         <Route exact path="/order" component={OrderList} />
@@ -81,11 +80,12 @@ export default function App (props) {
         <Route exact path="/update-order/:id" component={NewOrder} />
         <Route exact path="/product-to-order/:id" component={ProductToOrder} />
         <Route exact path="/edit-product-to-order/:id" component={EditOrderProduct} />
-        <Route exact path="/signup" component={SignUp} />
         <Route path="/profile" component={Profile} />
+        <Route exact path="/signup" component={SignUp} />
+        
         <Route component={ErrorPage} />
       </Switch>
-      {isHideSpinner?'':<LoadingSpinner />}
+      {isHideSpinner ? '' : <LoadingSpinner />}
     </Router>  
   );
 }

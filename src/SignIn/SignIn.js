@@ -25,9 +25,9 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      {/* <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '} */}
+      <Link color="inherit" href="https://ozfe-digital.de">
+        Ozfe-Digital
+      </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -100,7 +100,7 @@ class SignIn extends Component {
       tokens.save({ 'userType': 'user', 'token': response.data.accessToken });
       SystemUser.save(response.data.userData);
       utils.showSuccess("Login Successfull"); 
-      this.props.history.push('/customer');
+      this.props.history.push('/home');
       
     })
     .catch(_errors => {

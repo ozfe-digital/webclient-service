@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import {
   Button, ButtonGroup,
   Table, TableBody, TableCell,
-  TableContainer, TableHead, TableRow, Paper, Grid,Container
+  TableContainer, TableHead, TableRow, Paper, Grid
 } from '@material-ui/core';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,6 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import './CustomerList.css'
 
 import { appConfig } from '../../configs/app.config';
-import utils from '../../helper/utils';
 import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 const { baseUrl } = appConfig;
 
@@ -79,7 +78,7 @@ export default class CustomerList extends Component {
         <Grid >
         <Paper>
           <TableContainer component={Paper}>
-            <Table aria-label="customized table" className="customer-table">
+            <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table" >
               <TableHead>
                 <TableRow style={{ backgroundColor: '#2196f3', color: '#fafafa' }} variant="head">
                   <TableCell>Customer Name</TableCell>

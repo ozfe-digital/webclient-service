@@ -16,9 +16,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import EditIcon from '@material-ui/icons/Edit';
 import './OrderList.css'
-
 import { appConfig } from '../../configs/app.config';
-import utils from '../../helper/utils';
 import AppTemplate from "../../Templates/AppTemplate/AppTemplate";
 const { baseUrl } = appConfig;
 
@@ -83,9 +81,9 @@ export default class OrderList extends Component {
                 <br /><br />
                 <Grid item xs={12} sm={12}>
                     <TableContainer component={Paper}>
-                        <Table className='order-table' aria-label="customized table">
+                        <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table" >
                             <TableHead>
-                                <TableRow>
+                                <TableRow style={{ backgroundColor: '#2196f3', color: '#fafaf1' }} variant="head">
                                     <TableCell>#Order ID</TableCell>
                                     <TableCell>Date</TableCell>
                                     <TableCell>Code</TableCell>

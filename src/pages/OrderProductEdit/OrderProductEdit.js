@@ -65,7 +65,7 @@ export default class OrderProductEdit extends Component{
             <AppTemplate>
                 <div className="order-product-edit">
             <TableContainer component={Paper}>
-                <Table aria-label="customized table">
+                <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table" >
                     <TableHead>
                          <TableRow style={{backgroundColor:'#2196f3', color: '#fafafa'}} variant="head">
                             <TableCell>Product Code</TableCell>

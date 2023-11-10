@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import {
-    Button, TableRow, Paper, TextField, Grid, Container, MenuItem, InputLabel, FormHelperText,
+    Button, TableRow, Paper, TextField, Grid, MenuItem, InputLabel, FormHelperText,
     Select, Table, TableBody, TableCell, TableContainer, TableHead,
 
 } from '@material-ui/core';
@@ -240,7 +240,7 @@ export default class ProductToOrder extends Component {
                     <Grid item xs={12} sm={6}>
                         <Paper>
                             <TableContainer component={Paper}>
-                                <Table aria-label="customized table" className="order-product-table">
+                            <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table" >
                                     <TableHead>
                                         <TableRow style={{ backgroundColor: '#00bcd4', color: '#fafafa' }} variant="head">
                                             <TableCell>Product Name</TableCell>
