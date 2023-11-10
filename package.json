@@ -39,8 +39,8 @@
   "scripts": {
     "start": "env-cmd -f .env.prod react-scripts --openssl-legacy-provider start",
     "start:dev": "env-cmd -f .env.dev react-scripts --openssl-legacy-provider start",
-    "build": "env-cmd -f .env.prod react-scripts --openssl-legacy-provider build",
-    "build:dev": "env-cmd -f .env.dev react-scripts --openssl-legacy-provider build",
+    "build": "env-cmd -f .env.prod CI=false react-scripts --openssl-legacy-provider build",
+    "build:dev": "env-cmd -f .env.dev CI=false react-scripts --openssl-legacy-provider build",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts --openssl-legacy-provider eject"
   },
