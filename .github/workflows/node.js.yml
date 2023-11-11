@@ -58,4 +58,4 @@ jobs:
         context: .
         file: ./.github/workflows/Dockerfile
         push: true
-        tags: ${{ IMAGE_NAME }}:${{ TAG }}
+        tags: ${{ env.IMAGE_NAME }}:${{ env.TAG }}
