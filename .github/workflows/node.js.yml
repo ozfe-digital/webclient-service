@@ -8,7 +8,11 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+env:
+  #REGISTRY: ghcr.io
+  IMAGE_NAME: stormbl8/webclient-service
+  TAG: '0.0.1'
+  
 jobs:
   build:
 
@@ -54,4 +58,4 @@ jobs:
         context: .
         file: ./.github/workflows/Dockerfile
         push: true
-        tags: stormbl8/webclient-service:${{ version }}
+        tags: ${{ IMAGE_NAME }}:${{ TAG }}
