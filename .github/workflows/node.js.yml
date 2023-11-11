@@ -56,6 +56,6 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./.github/workflows/Dockerfile
+        file: ./Dockerfile
         push: true
         tags: ${{ env.IMAGE_NAME }}:${{ env.TAG }}
