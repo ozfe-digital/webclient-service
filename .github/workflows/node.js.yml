@@ -54,4 +54,4 @@ jobs:
         context: .
         file: ./.github/workflows/Dockerfile
         push: true
-        tags: stormbl8/webclient-service:${version}
+        tags: stormbl8/webclient-service:${{ version }}
