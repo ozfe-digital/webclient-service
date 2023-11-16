@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,useRef } from "react";
 
 import {
     Button, ButtonGroup, Table, TableBody,
@@ -8,6 +8,7 @@ import {
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../Templates/navbar.css';
+
 
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -21,8 +22,11 @@ const { baseUrl } = appConfig;
 
 
 
-export default class ProductList extends Component {
 
+
+
+export default class ProductList extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -60,12 +64,14 @@ export default class ProductList extends Component {
             });
 
     };
-
+    
     render() {
 
         return (
+            
             <AppTemplate>
                 <div className="product-list">
+
                 <Link to={"new-product"} >
                     <Button
                         variant="contained"
@@ -76,8 +82,13 @@ export default class ProductList extends Component {
                     >
                         New Product
             </Button>
+            
                 </Link>
-                <br /><br />
+                <br />
+
+      
+                <br />
+                
                 <Grid >
                      <Paper>
                         <TableContainer component={Paper}>

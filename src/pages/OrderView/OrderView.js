@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
   Card, Button, CardActions, CardContent, Typography,
   Table, TableBody, TableCell, TableContainer, TableHead,
-  TableRow, Paper, Grid
+  TableRow, Paper, Grid, Hidden
 
 } from '@material-ui/core';
 import axios from 'axios';
@@ -12,9 +12,28 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UpdateIcon from '@material-ui/icons/Update';
 import './OrderView.css' 
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 import { appConfig } from '../../configs/app.config';
+
+import html2canvas from "html2canvas";
+import jsPdf from "jspdf";
+import logo from '../../Components/logo.png';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 const { baseUrl } = appConfig;
 
 
@@ -26,6 +45,32 @@ const columns = [
 ];
 
 export default class OrderView extends Component {
+  state={
+    openModal : false
+}
+
+onClickButton = e =>{
+    e.preventDefault()
+    this.setState({openModal : true})
+}
+
+onCloseModal = ()=>{
+    this.setState({openModal : false})
+}
+  
+
+  // PDF Test Starts
+  pdfGenerate = async () => {
+    const pdf = new jsPdf("portrait", "pt", "a4"); 
+    const data = await html2canvas(document.querySelector("#pdf:not(#itm-ignore)"));
+    const img = data.toDataURL("image/png");
+    const imgProperties = pdf.getImageProperties(img);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+    pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("bill.pdf");
+  };
+  // PDF Test Ends
 
   constructor(props) {
 
@@ -87,20 +132,127 @@ export default class OrderView extends Component {
   updateProduct(id) {
     console.log('id', id)
   }
-
-
   render() {
 
     const { orderDetails, customer, customer_address, customer_email, contact_number } = this.state;
-    //console.log('this.state', this.state)
-    //console.log('orderDetails', orderDetails)
-    // const orderList = []
-
+    
     return (
+      
       <AppTemplate >
         <div className="order-view">
-        <Grid container spacing={3}>
-          <Grid item sm={4}>
+        {/* Modal Starts here */}
+        <Modal
+            open={this.state.openModal} 
+            onClose={this.onCloseModal}
+            aria-labelledby="child-modal-title"
+            aria-describedby="child-modal-description"
+          >
+            <Box sx={{ ...style, width: 800, height: 600 }}>
+            <div className="order-view" id="pdf">
+            <p><img src={logo} alt="logo" width={"100%"} height={100}/></p>
+            <Grid container spacing={4}>
+            <Grid item sm={6}>
+              <CardContent>
+                <Typography color="textSecondary" gutterBottom>
+                  Bill To:
+                </Typography>
+                <Typography variant="h5" component="h2">
+                  {customer}
+                </Typography>
+                <Typography color="textSecondary">
+                  {customer_email}
+                </Typography>
+                <Typography color="textSecondary">
+                  {contact_number}
+                </Typography>
+                <Typography color="textSecondary">
+                  {customer_address}
+                </Typography>
+
+              </CardContent>
+              </Grid>
+              <Grid item sm={6}>
+            <Card variant="outlined">
+              <CardContent>
+                <Typography color="textSecondary" gutterBottom>
+                  Order Details
+                </Typography>
+
+                <Typography variant="h5" component="h2">
+                  {this.state.orderDate}
+                </Typography>
+
+                <Typography color="textSecondary">
+                  <Typography variant="caption" display="block" gutterBottom>
+                    Order ID:
+                  </Typography>
+                  {this.state.order_id}
+                </Typography>
+
+                <Typography variant="body2" component="p">
+                  {this.state.remarks}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+        <Grid item sm={12} xs={12}>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table" >
+              <TableHead>
+                <TableRow style={{  backgroundColor: '#2196f3', color: '#fafafa'  }} variant="head">
+                  <TableCell>Quanity</TableCell>
+                  <TableCell>Product Name</TableCell>
+                  
+                  <TableCell>Unit Price</TableCell>
+                  <TableCell>Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+
+
+                {orderDetails.map((eachRow, index) => {
+                 const amount = eachRow.quantity * eachRow.product.price;
+
+                  return (
+
+                  <TableRow key={index}>
+                    <TableCell>{eachRow.quantity}</TableCell>  
+                    <TableCell>{eachRow.product.name}</TableCell>
+                    
+                    <TableCell>{eachRow.product.price}</TableCell>
+                    <TableCell>{amount}</TableCell>
+                  </TableRow>
+                  )
+                }, []
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid></div>
+              <Button onClick={this.handleClose}>Close </Button>
+              <Button 
+                        onClick={this.pdfGenerate} 
+                        id="itm-ignore"
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        startIcon={<UpdateIcon />}
+                        data-html2canvas-ignore="true">
+                        PDF
+                      </Button>
+            </Box>
+          </Modal>
+
+{/* Modal ends here */}
+
+
+
+
+
+        <p><img src={logo} alt="logo" width={"100%"} height={100} hidden/></p>
+        <Grid container spacing={4}>
+          <Grid item sm={6}>
             <Card variant="outlined">
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
@@ -120,14 +272,13 @@ export default class OrderView extends Component {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button variant="contained" color="primary" size="small">
+                <Button variant="contained" color="primary" size="small" data-html2canvas-ignore="true" onClick={this.onClickButton}>
                   View More
                 </Button>
-
               </CardActions>
             </Card>
           </Grid>
-          <Grid item sm={4}>
+          <Grid item sm={6}>
             <Card variant="outlined">
               <CardContent>
                 <Typography color="textSecondary" gutterBottom>
@@ -159,9 +310,10 @@ export default class OrderView extends Component {
 
         <Typography variant="h4" gutterBottom>
           Product List
+          
         </Typography>
 
-        <Grid item sm={8} xs={12}>
+        <Grid item sm={12} xs={12}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650}} size="small" aria-label="a dense table" >
               <TableHead>
@@ -192,13 +344,22 @@ export default class OrderView extends Component {
                         color="primary"
                         size="small"
                         startIcon={<UpdateIcon />}
-                       
-                      >
+                        data-html2canvas-ignore="true" >
                         Update
                       </Button>
                       </Link>
-
+                      <Button 
+                        onClick={this.pdfGenerate} 
+                        id="itm-ignore"
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        startIcon={<UpdateIcon />}
+                        data-html2canvas-ignore="true">
+                        Export
+                      </Button>
                     </TableCell>
+                    
                   </TableRow>
                   )
                 }, []
@@ -208,10 +369,8 @@ export default class OrderView extends Component {
           </TableContainer>
         </Grid>
         </div>        
-      </AppTemplate>
-
-
-
+    </AppTemplate>
     )
   }
+  
 }

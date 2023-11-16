@@ -22,7 +22,6 @@ import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import Profile from './Profile/Profile';
 import { interceptor } from './interceptor';
-import PrivateRoute from './privateRoute';
 
 
 const useStyles = makeStyles((theme) => ({
