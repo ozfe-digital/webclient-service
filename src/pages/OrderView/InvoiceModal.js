@@ -47,7 +47,7 @@ class InvoiceModal extends React.Component {
           <div id="invoiceCapture">
             <div className="d-flex flex-row justify-content-between align-items-start bg-light w-100 p-4">
               <div className="w-100">
-                <h4 className="fw-bold my-2">test</h4>
+                <h4 className="fw-bold my-2">CRM APP</h4>
                 <h6 className="fw-bold text-secondary mb-1">
                   Invoice #: {this.props.order_id}
                 </h6>
@@ -80,7 +80,7 @@ class InvoiceModal extends React.Component {
               <Table className="mb-0">
                 <thead>
                   <tr>
-                    <th>QTY</th>
+                    <th>QTY</th> 
                     <th>DESCRIPTION</th>
                     <th className="text-end">PRICE</th>
                     <th className="text-end">AMOUNT</th>
@@ -102,7 +102,7 @@ class InvoiceModal extends React.Component {
                         </td>
                         
                         <td className="text-end" style={{width: '100px'}}>{eachRow.product.price}</td>
-                        <td className="text-end" style={{width: '100px'}}>  { eachRow.product.price + eachRow.product.quantity } </td>
+                        <td className="text-end" style={{width: '100px'}}>  {eachRow.quantity * eachRow.product.price}  </td>
                       </tr>
                           )
                           }, []
@@ -120,26 +120,26 @@ class InvoiceModal extends React.Component {
                   <tr className="text-end">
                     <td></td>
                     <td className="fw-bold" style={{width: '100px'}}>SUBTOTAL</td>
-                    <td className="text-end" style={{width: '100px'}}>  </td>
+                    <td className="text-end" style={{width: '100px'}}> { this.props.subTotal } </td>
                   </tr>
                   {this.props.taxAmmount != 0.00 &&
                     <tr className="text-end">
                       <td></td>
                       <td className="fw-bold" style={{width: '100px'}}>TAX</td>
-                      <td className="text-end" style={{width: '100px'}}>test3</td>
+                      <td className="text-end" style={{width: '100px'}}>{this.props.taxAmmount}</td>
                     </tr>
                   }
                   {this.props.discountAmmount != 0.00 &&
                     <tr className="text-end">
                       <td></td>
                       <td className="fw-bold" style={{width: '100px'}}>DISCOUNT</td>
-                      <td className="text-end" style={{width: '100px'}}>test4</td>
+                      <td className="text-end" style={{width: '100px'}}>{this.props.discountAmmount}</td>
                     </tr>
                   }
                   <tr className="text-end">
                     <td></td>
                     <td className="fw-bold" style={{width: '100px'}}>TOTAL</td>
-                    <td className="text-end" style={{width: '100px'}}>test5</td>
+                    <td className="text-end" style={{width: '100px'}}>{ this.props.total }</td>
                   </tr>
                 </tbody>
               </Table>

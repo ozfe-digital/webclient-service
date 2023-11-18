@@ -22,6 +22,14 @@ import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import Profile from './Profile/Profile';
 import { interceptor } from './interceptor';
+import SecuredPage from "./TEST/securedpage";
+import keycloak from "./helper/keycloak";
+import { ReactKeycloakProvider } from "@react-keycloak/web";
+import PrivateRoute from "./helper/PrivateRoute";
+import Navtest from "./TEST/navtest";
+
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +69,7 @@ export default function App (props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return ( 
+    <ReactKeycloakProvider authClient={keycloak}>
     <Router history={history}>
       <Switch> 
         <Route path="/" exact component={SignIn} />
@@ -81,11 +90,21 @@ export default function App (props) {
         <Route exact path="/edit-product-to-order/:id" component={EditOrderProduct} />
         <Route path="/profile" component={Profile} />
         <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/navtest" component={Navtest}/>
+        <Route
+             path="/secured"
+             element={
+               <PrivateRoute>
+                 <SecuredPage />
+               </PrivateRoute>
+             }
+           />
         
         <Route component={ErrorPage} />
       </Switch>
       {isHideSpinner ? '' : <LoadingSpinner />}
     </Router>  
+    </ReactKeycloakProvider>
   );
 }
  

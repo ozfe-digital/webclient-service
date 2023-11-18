@@ -15,9 +15,6 @@ import utils from '../../helper/utils';
 import { appConfig } from '../../configs/app.config';
 const { baseUrl } = appConfig;
 
-
-
-
 export default class ProductToOrder extends Component {
     constructor(props) {
         super(props);

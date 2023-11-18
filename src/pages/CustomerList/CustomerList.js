@@ -38,6 +38,7 @@ export default class CustomerList extends Component {
       .then((data) => {
         this.setState({ customer: data });
       });
+    
   }
 
   deleteCustomer = (customerId) => {
@@ -53,7 +54,10 @@ export default class CustomerList extends Component {
         else {
           this.setState({ "show": false });
         }
-
+      })
+      .catch(response => {
+        //handle error
+        console.log(response)
       });
 
   };

@@ -50,22 +50,10 @@ export default class OrderView extends Component {
     openModal : false,
     isOpen: false,
 }
- 
-  // PDF Test Starts
-  pdfGenerate = async () => {
-    const pdf = new jsPdf("portrait", "pt", "a4"); 
-    const data = await html2canvas(document.querySelector("#pdf:not(#itm-ignore)"));
-    const img = data.toDataURL("image/png");
-    const imgProperties = pdf.getImageProperties(img);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
-    pdf.addImage(img, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save("bill.pdf");
-  };
-  // PDF Test Ends
 
   openModal = (event) => {
     event.preventDefault()
+    this.subTotalCalculate()
     this.setState({isOpen: true})
   };
   
@@ -85,6 +73,10 @@ export default class OrderView extends Component {
     super(props);
     this.state = {
       orderDetails: [],
+      taxRate: '19',
+      taxAmmount: '0.00',
+      discountRate: '0',
+      discountAmmount: '0.00'
     };
 
   }
@@ -140,13 +132,38 @@ export default class OrderView extends Component {
   updateProduct(id) {
     console.log('id', id)
   }
+subTotalCalculate() {
+  var items = this.state.orderDetails;
+  var subTotal = 0;
+  var itemTotal = 0;
 
+  items.map(function(items) {
+    subTotal = parseFloat(subTotal + parseFloat(items.product.price).toFixed(2) * parseInt(items.quantity).toFixed(2))
+    itemTotal = parseFloat(items.product.price).toFixed(2) * parseInt(items.quantity).toFixed(2)
+  });
+
+  this.setState({
+    subTotal: parseFloat(subTotal).toFixed(2)
+  }, () => {
+    this.setState({
+      taxAmmount: parseFloat(parseFloat(subTotal) * (this.state.taxRate / 100)).toFixed(2)
+    }, () => {
+      this.setState({
+        discountAmmount: parseFloat(parseFloat(subTotal) * (this.state.discountRate / 100)).toFixed(2)
+      }, () => {
+        this.setState({
+          total: parseFloat((subTotal - this.state.discountAmmount) + parseFloat(this.state.taxAmmount)).toFixed(2)
+        });
+      });
+    });
+  });
+}
   render() {
 
     const { orderDetails, customer, customer_address,
             customer_email, contact_number, remarks, 
             status, orderDate, order_id,
-            subTotal
+            subTotal, total,discountAmmount, taxAmmount
   } = this.state;
     
     return (
@@ -175,7 +192,7 @@ export default class OrderView extends Component {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button variant="primary" onClick={this.openModal} className="d-block w-100">Review Invoice</Button>
+                <Button variant="primary" onClick={this.openModal} className="d-block">Review Invoice</Button>
                 <InvoiceModal showModal={this.state.isOpen} 
                     closeModal={this.closeModal} 
                     orderDetails={this.state.orderDetails} 
@@ -187,7 +204,10 @@ export default class OrderView extends Component {
                     remarks={this.state.remarks}
                     status={this.state.status}
                     order_id={this.state.order_id}
-                    
+                    subTotal={this.state.subTotal}
+                    taxAmmount={this.state.taxAmmount} 
+                    discountAmmount={this.state.discountAmmount} 
+                    total={this.state.total}                    
                     />
               </CardActions>
             </Card>
@@ -262,16 +282,6 @@ export default class OrderView extends Component {
                         Update
                       </Button>
                       </Link>
-                      <Button 
-                        onClick={this.pdfGenerate} 
-                        id="itm-ignore"
-                        variant="contained"
-                        color="secondary"
-                        size="small"
-                        startIcon={<UpdateIcon />}
-                        data-html2canvas-ignore="true">
-                        Export
-                      </Button>
                     </TableCell>
                     
                   </TableRow>

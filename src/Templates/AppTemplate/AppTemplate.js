@@ -147,6 +147,10 @@ export default function AppTemplate(props) {
             <div className="top">
               {SideBarItems}  
             </div>
+
+              <br/>
+              
+
             <div className="bottom">
             <Divider/> 
               <Navbar />
@@ -167,25 +171,19 @@ export default function AppTemplate(props) {
         >
           <Toolbar />
           
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 46 }}>
-            <Grid container spacing={1} >
-            
-              <Grid item md={8} lg={12}>
-                <Paper sx={{ p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    
-                  }}>
-                      {{...props.children}} 
-                </Paper>
+          <Container maxWidth="lg" sx={{ mt: 2, mb: 0 }}>
+              <Grid container spacing={1} absolute height={600}>
+                <Grid item md={8} lg={12}>
+                  <Paper sx={{ p: 2, height: 600 }}>
+                    {props.children}
+                  </Paper>
+                </Grid>
               </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container>
+              <Copyright sx={{ pt: 4 }} />
+            </Container>
           </Box>
-      </Box>
-    </ThemeProvider>
-          
+        </Box>
+      </ThemeProvider>
     </>
   );
 }

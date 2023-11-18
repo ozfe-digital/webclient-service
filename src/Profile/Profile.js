@@ -21,7 +21,7 @@ export default class OrderView extends Component {
 
     super(props);
     this.state = {
-
+      role: null,
     };
 
   }
@@ -84,7 +84,7 @@ export default class OrderView extends Component {
                       <PermIdentityIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={role} secondary="Role" />
+                  <ListItemText primary={this.state.role} secondary="Role" />
                 </ListItem>
               </List>
             </CardContent>
