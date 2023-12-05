@@ -68,4 +68,5 @@ export const interceptor = function (excludeUrl, cb) {
       // Reject the promise with an error on failure
     });
   }
+  
 };

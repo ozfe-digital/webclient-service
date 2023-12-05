@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Router, Switch, Route, useHistory } from 'react-router-dom';  
 import 'react-toastify/dist/ReactToastify.css'; 
-//import UserList from './pages/User/UserCard';
 
 import CustomerList from './pages/CustomerList/CustomerList';
 import ProductList from './pages/ProductList/ProductList';
@@ -17,16 +16,16 @@ import ProductToOrder from './pages/ProductToOrder/ProductToOrder';
 import EditOrderProduct from './pages/EditOrderProduct/EditOrderProduct';
 import ErrorPage from './pages/ErrorPage/ErrorPage'; 
 import LoadingSpinner from './Components/LoadingSpinner/LoadingSpinner';
-
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 import Profile from './Profile/Profile';
 import { interceptor } from './interceptor';
-import SecuredPage from "./TEST/securedpage";
 import keycloak from "./helper/keycloak";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
-import PrivateRoute from "./helper/PrivateRoute";
-import Navtest from "./TEST/navtest";
+import UserAdministration from './pages/Users/UserAdministration'
+import Secured from "./pages/Users/secured";
+
+
 
 
 
@@ -49,7 +48,7 @@ export default function App (props) {
     'api/user/login',
     'api/user/',
   ]; 
-  
+
   interceptor(authExList, (authData)=>{ 
     const {loaderIsHide, redirectTo} = authData;
     setIsHideSpinner(loaderIsHide);    
@@ -61,20 +60,22 @@ export default function App (props) {
   // this way equal to elementDidMount()
   useEffect(() => {  
     setIsHideSpinner(true); 
+ 
   },[]);
-  
+
   const { window } = props;
   const classes = useStyles();   
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return ( 
-    <ReactKeycloakProvider authClient={keycloak}>
+<ReactKeycloakProvider authClient={keycloak}>
     <Router history={history}>
       <Switch> 
         <Route path="/" exact component={SignIn} />
         <Route exact path="/signin" component={SignIn} />
         <Route path="/home" exact component={HomePage } />
+        
         <Route exact path="/customer" component={CustomerList} />
         <Route exact path="/product" component={ProductList} />
         <Route exact path="/order" component={OrderList} />
@@ -88,23 +89,18 @@ export default function App (props) {
         <Route exact path="/update-order/:id" component={NewOrder} />
         <Route exact path="/product-to-order/:id" component={ProductToOrder} />
         <Route exact path="/edit-product-to-order/:id" component={EditOrderProduct} />
+
         <Route path="/profile" component={Profile} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/navtest" component={Navtest}/>
-        <Route
-             path="/secured"
-             element={
-               <PrivateRoute>
-                 <SecuredPage />
-               </PrivateRoute>
-             }
-           />
+        <Route exact path="/signup" component={SignUp} /> 
+        <Route exact path="/useradmin" component={UserAdministration}/>
+        <Route exact path="/secured" component={Secured}/>
         
         <Route component={ErrorPage} />
       </Switch>
       {isHideSpinner ? '' : <LoadingSpinner />}
     </Router>  
-    </ReactKeycloakProvider>
+</ReactKeycloakProvider>
   );
 }
  
+

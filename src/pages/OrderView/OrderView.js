@@ -13,13 +13,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import UpdateIcon from '@material-ui/icons/Update';
 import './OrderView.css' 
 
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-
 import { appConfig } from '../../configs/app.config';
-
-import html2canvas from "html2canvas";
-import jsPdf from "jspdf";
 import logo from '../../Components/logo.png';
 import InvoiceModal from "./InvoiceModal";
 
@@ -51,12 +45,12 @@ export default class OrderView extends Component {
     isOpen: false,
 }
 
-  openModal = (event) => {
-    event.preventDefault()
-    this.subTotalCalculate()
-    this.setState({isOpen: true})
-  };
-  
+openModal = (event) => {
+  event.preventDefault()
+  this.subTotalCalculate()
+  this.setState({isOpen: true})
+};
+
   closeModal = (event) => this.setState({isOpen: false});
   
   onClickButton = e =>{

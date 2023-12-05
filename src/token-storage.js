@@ -2,12 +2,16 @@ import axios from 'axios';
 // import { ApiUrlService } from 'services';
 import { Promise } from 'es6-promise';
 import {  appConfig  } from './configs/app.config'
+import { jwtDecode } from 'jwt-decode';
+
 
 const baseUrl = appConfig.baseUrl;
 export class TokenStorage {
 
   static LOCAL_STORAGE_TOKEN = 'token';
   static LOCAL_STORAGE_REFRESH_TOKEN = 'refresh_token';
+
+  
 
   static isAuthenticated() {
     return this.getToken() !== null;
@@ -28,7 +32,14 @@ export class TokenStorage {
 
           this.storeToken(response.data.token);
           this.storeRefreshToken(response.data.refresh_token);
-
+          // check expire
+          const decodedToken = jwtDecode(TokenStorage.LOCAL_STORAGE_TOKEN);
+          console.log(decodedToken);
+         if(decodedToken.exp*1000 < Date.newDate().getTime()) 
+          {
+            this.clear();
+          }
+          // check expire
           resolve(response.data.token);
         })
         .catch((error) => {
@@ -38,6 +49,7 @@ export class TokenStorage {
   }
 
   static storeToken(token) {
+
     localStorage.setItem(TokenStorage.LOCAL_STORAGE_TOKEN, token);
   }
 
