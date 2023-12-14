@@ -183,9 +183,9 @@ class SignIn extends Component {
           </Button>
           <Grid container>
             <Grid item xs>
-              {/* <Link href="#" variant="body2">
+              <Link to={"forgotpwd"} variant="body2">
                 Forgot password?
-              </Link> */}
+              </Link>
             </Grid>
             <Grid item>
               <Link to={"signup"} variant="body2">

@@ -8,6 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 import { BiPaperPlane, BiCloudDownload } from "react-icons/bi";
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf'
+import axios from 'axios';
+
 
 function GenerateInvoice() {
   html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
@@ -29,7 +31,8 @@ function GenerateInvoice() {
 class InvoiceModal extends React.Component {
   constructor(props) {
     super(props);
-  }
+  };
+
   handleCalculateTotal() {
     var items = this.props.orderDetails;
     var subTotal = 0;
@@ -152,6 +155,7 @@ class InvoiceModal extends React.Component {
           <div className="pb-4 px-4">
             <Row>
               <Col md={6}>
+            
                 <Button variant="primary" className="d-block w-100" onClick={GenerateInvoice}>
                   <BiPaperPlane style={{width: '15px', height: '15px', marginTop: '-3px'}} className="me-2"/>Send Invoice
                 </Button>
@@ -166,6 +170,7 @@ class InvoiceModal extends React.Component {
           </div>
         </Modal>
         <hr className="mt-4 mb-3"/>
+        
       </div>
     )
   }
