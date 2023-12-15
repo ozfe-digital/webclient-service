@@ -42,7 +42,6 @@ jobs:
         CI: '' # to ignore warnings during builds
       run: |
         npm run build
-        npm run start
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
