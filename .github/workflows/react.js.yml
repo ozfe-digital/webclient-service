@@ -11,7 +11,7 @@ on:
 env:
   #REGISTRY: ghcr.io
   IMAGE_NAME: stormbl8/webclient-service
-  TAG: '0.0.2'
+  TAG: '0.0.2' # this version has implentation of email
   
 jobs:
   build:
